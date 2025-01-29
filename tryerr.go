@@ -2,7 +2,7 @@ package tryerr
 
 import "fmt"
 
-func CatchErrorAndHandle(handler func(msg string, err error)) {
+func CatchAndHandle(handler func(msg string, err error)) {
 	if err := recover(); err != nil {
 		if se, ok := err.(specialError); ok {
 			handler(se.msg, se.err)
@@ -12,7 +12,7 @@ func CatchErrorAndHandle(handler func(msg string, err error)) {
 	}
 }
 
-func CatchError(pErr *error) {
+func Catch(pErr *error) {
 	if err := recover(); err != nil {
 		if se, ok := err.(specialError); ok {
 			*pErr = fmt.Errorf("%s: %w", se.msg, se.err)
